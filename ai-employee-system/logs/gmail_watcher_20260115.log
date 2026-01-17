@@ -1,0 +1,157 @@
+2026-01-15 01:38:24,897 - EmailProcessor - INFO - Using win10toast for notifications (patched)
+2026-01-15 01:38:24,898 - GmailWatcher - INFO - ==================================================
+2026-01-15 01:38:24,898 - GmailWatcher - INFO - AI Employee System - Gmail Watcher
+2026-01-15 01:38:24,899 - GmailWatcher - INFO - ==================================================
+2026-01-15 01:38:24,899 - GmailWatcher - INFO - Vault: C:\Users\SIBGHAT\OneDrive\Documents\Obsidian Vault\AI-Employee-Vault
+2026-01-15 01:38:24,899 - GmailWatcher - INFO - Check Interval: 120 seconds
+2026-01-15 01:38:24,900 - GmailWatcher - INFO - Log File: C:\Users\SIBGHAT\OneDrive\Desktop\hackathon-0-FTE\ai-employee-system\logs\gmail_watcher_20260115.log
+2026-01-15 01:38:24,900 - GmailWatcher - INFO - ==================================================
+2026-01-15 01:38:27,933 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2026-01-15 01:38:28,771 - GmailWatcher - INFO - Mode: Rule-Based (Gmail Send enabled, no Claude API)
+2026-01-15 01:38:28,771 - GmailWatcher - INFO - Watcher started. Checking every 120 seconds...
+2026-01-15 01:38:28,772 - GmailWatcher - INFO - Checkbox trigger: Check '- [x] Reply to sender' to auto-send
+2026-01-15 01:38:28,772 - GmailWatcher - INFO - --------------------------------------------------
+2026-01-15 01:38:30,564 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 01:38:30,568 - GmailWatcher - INFO - [.] LOW - Invitation [AUTO-REPLIED]
+2026-01-15 01:38:31,599 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 01:38:31,601 - GmailWatcher - INFO - [.] LOW - Invitation [AUTO-REPLIED]
+2026-01-15 01:38:32,289 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 01:38:32,291 - GmailWatcher - INFO - [.] LOW - Project Alpha [AUTO-REPLIED]
+2026-01-15 01:38:33,523 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 01:38:33,524 - GmailWatcher - INFO - [.] LOW - New email [AUTO-REPLIED]
+2026-01-15 01:38:33,830 - GmailWatcher - INFO - [.] LOW - Security alert
+2026-01-15 01:38:34,574 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 01:38:34,576 - GmailWatcher - INFO - [.] LOW - 10 New Tools You Missed This Week [AUTO-REPLIED]
+2026-01-15 01:38:35,361 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 01:38:35,363 - GmailWatcher - INFO - [.] LOW - Project Alpha [AUTO-REPLIED]
+2026-01-15 01:38:36,164 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 01:38:37,109 - GmailWatcher - INFO - [.] LOW - It's new one [AUTO-REPLIED]
+2026-01-15 01:38:37,913 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 01:38:37,915 - GmailWatcher - INFO - [.] LOW - new one [AUTO-REPLIED]
+2026-01-15 01:38:38,578 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 01:38:38,580 - GmailWatcher - INFO - [.] LOW - New email [AUTO-REPLIED]
+2026-01-15 01:40:49,562 - EmailProcessor - INFO - Notification sent: HIGH Email from Muniya
+2026-01-15 01:40:49,568 - GmailWatcher - INFO - [!!] HIGH - Invitation
+2026-01-15 01:40:49,577 - GmailWatcher - INFO - [CHECKBOX] Processing: EMAIL_19bb9548fdfea356.md
+2026-01-15 01:40:49,972 - EmailProcessor - INFO - [SENT] Auto-reply to: no-reply@accounts.google.com
+2026-01-15 01:40:49,973 - GmailWatcher - INFO -   [SENT] Reply sent to: no-reply@accounts.google.com
+2026-01-15 01:40:50,349 - GmailWatcher - INFO -   [GMAIL] Marked as read: 19bb9548fd...
+2026-01-15 01:40:50,353 - GmailWatcher - INFO -   [MOVED] EMAIL_19bb9548fdfea356.md → Done/
+2026-01-15 01:42:50,647 - GmailWatcher - INFO - [CHECKBOX] Processing: EMAIL_19bbe3bfa2c3e9f1.md
+2026-01-15 01:42:51,031 - EmailProcessor - INFO - [SENT] Auto-reply to: m95251957@gmail.com
+2026-01-15 01:42:51,032 - GmailWatcher - INFO -   [SENT] Reply sent to: m95251957@gmail.com
+2026-01-15 01:42:51,347 - GmailWatcher - INFO -   [GMAIL] Marked as read: 19bbe3bfa2...
+2026-01-15 01:42:51,350 - GmailWatcher - INFO -   [MOVED] EMAIL_19bbe3bfa2c3e9f1.md → Done/
+2026-01-15 01:47:12,940 - GmailWatcher - INFO - Watcher stopped.
+2026-01-15 01:48:15,291 - EmailProcessor - INFO - Using win10toast for notifications (patched)
+2026-01-15 01:48:15,292 - GmailWatcher - INFO - ==================================================
+2026-01-15 01:48:15,292 - GmailWatcher - INFO - AI Employee System - Gmail Watcher
+2026-01-15 01:48:15,292 - GmailWatcher - INFO - ==================================================
+2026-01-15 01:48:15,292 - GmailWatcher - INFO - Vault: C:\Users\SIBGHAT\OneDrive\Documents\Obsidian Vault\AI-Employee-Vault
+2026-01-15 01:48:15,293 - GmailWatcher - INFO - Check Interval: 120 seconds
+2026-01-15 01:48:15,293 - GmailWatcher - INFO - Log File: C:\Users\SIBGHAT\OneDrive\Desktop\hackathon-0-FTE\ai-employee-system\logs\gmail_watcher_20260115.log
+2026-01-15 01:48:15,293 - GmailWatcher - INFO - ==================================================
+2026-01-15 01:48:15,317 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2026-01-15 01:48:15,324 - GmailWatcher - INFO - Mode: Rule-Based (Gmail Send enabled, no Claude API)
+2026-01-15 01:48:15,324 - GmailWatcher - INFO - Watcher started. Checking every 120 seconds...
+2026-01-15 01:48:15,324 - GmailWatcher - INFO - Checkbox trigger: Check '- [x] Reply to sender' to auto-send
+2026-01-15 01:48:15,325 - GmailWatcher - INFO - --------------------------------------------------
+2026-01-15 01:48:17,159 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 01:48:17,161 - GmailWatcher - INFO - [.] LOW - Invitation [AUTO-REPLIED]
+2026-01-15 01:48:17,978 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 01:48:18,090 - GmailWatcher - INFO - [.] LOW - Invitation [AUTO-REPLIED]
+2026-01-15 01:48:18,991 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 01:48:18,993 - GmailWatcher - INFO - [.] LOW - Project Alpha [AUTO-REPLIED]
+2026-01-15 01:48:19,713 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 01:48:19,716 - GmailWatcher - INFO - [.] LOW - New email [AUTO-REPLIED]
+2026-01-15 01:48:20,569 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 01:48:20,573 - GmailWatcher - INFO - [.] LOW - 10 New Tools You Missed This Week [AUTO-REPLIED]
+2026-01-15 01:48:21,374 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 01:48:21,376 - GmailWatcher - INFO - [.] LOW - Project Alpha [AUTO-REPLIED]
+2026-01-15 01:48:22,213 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 01:48:22,221 - GmailWatcher - INFO - [.] LOW - It's new one [AUTO-REPLIED]
+2026-01-15 01:48:22,941 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 01:48:22,943 - GmailWatcher - INFO - [.] LOW - new one [AUTO-REPLIED]
+2026-01-15 01:48:23,732 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 01:48:23,737 - GmailWatcher - INFO - [.] LOW - New email [AUTO-REPLIED]
+2026-01-15 07:08:51,926 - EmailProcessor - INFO - Using win10toast for notifications (patched)
+2026-01-15 07:08:52,026 - GmailWatcher - INFO - ==================================================
+2026-01-15 07:08:52,040 - GmailWatcher - INFO - AI Employee System - Gmail Watcher
+2026-01-15 07:08:52,041 - GmailWatcher - INFO - ==================================================
+2026-01-15 07:08:52,042 - GmailWatcher - INFO - Vault: C:\Users\SIBGHAT\OneDrive\Documents\Obsidian Vault\AI-Employee-Vault
+2026-01-15 07:08:52,042 - GmailWatcher - INFO - Check Interval: 120 seconds
+2026-01-15 07:08:52,042 - GmailWatcher - INFO - Log File: C:\Users\SIBGHAT\OneDrive\Desktop\hackathon-0-FTE\ai-employee-system\logs\gmail_watcher_20260115.log
+2026-01-15 07:08:52,043 - GmailWatcher - INFO - ==================================================
+2026-01-15 07:08:54,085 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2026-01-15 07:08:54,488 - GmailWatcher - INFO - Mode: Rule-Based (Gmail Send enabled, no Claude API)
+2026-01-15 07:08:54,489 - GmailWatcher - INFO - Watcher started. Checking every 120 seconds...
+2026-01-15 07:08:54,491 - GmailWatcher - INFO - Checkbox trigger: Check '- [x] Reply to sender' to auto-send
+2026-01-15 07:08:54,491 - GmailWatcher - INFO - --------------------------------------------------
+2026-01-15 07:08:56,980 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 07:08:57,006 - GmailWatcher - INFO - [.] LOW - Invitation [AUTO-REPLIED]
+2026-01-15 07:08:58,059 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 07:08:58,115 - GmailWatcher - INFO - [.] LOW - Invitation [AUTO-REPLIED]
+2026-01-15 07:08:58,782 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 07:08:58,802 - GmailWatcher - INFO - [.] LOW - Project Alpha [AUTO-REPLIED]
+2026-01-15 07:08:58,806 - EmailProcessor - ERROR - Dashboard update error: [Errno 13] Permission denied: 'C:\\Users\\SIBGHAT\\OneDrive\\Documents\\Obsidian Vault\\AI-Employee-Vault\\Dashboard.md'
+2026-01-15 07:08:59,635 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 07:08:59,789 - GmailWatcher - INFO - [.] LOW - New email [AUTO-REPLIED]
+2026-01-15 07:09:00,458 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 07:09:00,645 - GmailWatcher - INFO - [.] LOW - 10 New Tools You Missed This Week [AUTO-REPLIED]
+2026-01-15 07:09:01,282 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 07:09:01,426 - GmailWatcher - INFO - [.] LOW - Project Alpha [AUTO-REPLIED]
+2026-01-15 07:09:02,171 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 07:09:02,213 - GmailWatcher - INFO - [.] LOW - It's new one [AUTO-REPLIED]
+2026-01-15 07:09:02,216 - EmailProcessor - ERROR - Dashboard update error: [Errno 13] Permission denied: 'C:\\Users\\SIBGHAT\\OneDrive\\Documents\\Obsidian Vault\\AI-Employee-Vault\\Dashboard.md'
+2026-01-15 07:09:02,848 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 07:09:02,993 - GmailWatcher - INFO - [.] LOW - new one [AUTO-REPLIED]
+2026-01-15 07:09:02,996 - EmailProcessor - ERROR - Dashboard update error: [Errno 13] Permission denied: 'C:\\Users\\SIBGHAT\\OneDrive\\Documents\\Obsidian Vault\\AI-Employee-Vault\\Dashboard.md'
+2026-01-15 07:09:03,743 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 07:09:03,956 - GmailWatcher - INFO - [.] LOW - New email [AUTO-REPLIED]
+2026-01-15 07:09:03,958 - EmailProcessor - ERROR - Dashboard update error: [Errno 13] Permission denied: 'C:\\Users\\SIBGHAT\\OneDrive\\Documents\\Obsidian Vault\\AI-Employee-Vault\\Dashboard.md'
+2026-01-15 07:13:38,311 - GmailWatcher - INFO - Watcher stopped.
+2026-01-15 07:14:08,983 - EmailProcessor - INFO - Using win10toast for notifications (patched)
+2026-01-15 07:14:08,984 - GmailWatcher - INFO - ==================================================
+2026-01-15 07:14:08,985 - GmailWatcher - INFO - AI Employee System - Gmail Watcher
+2026-01-15 07:14:08,985 - GmailWatcher - INFO - ==================================================
+2026-01-15 07:14:08,985 - GmailWatcher - INFO - Vault: C:\Users\SIBGHAT\OneDrive\Documents\Obsidian Vault\AI-Employee-Vault
+2026-01-15 07:14:08,985 - GmailWatcher - INFO - Check Interval: 120 seconds
+2026-01-15 07:14:08,987 - GmailWatcher - INFO - Log File: C:\Users\SIBGHAT\OneDrive\Desktop\hackathon-0-FTE\ai-employee-system\logs\gmail_watcher_20260115.log
+2026-01-15 07:14:08,987 - GmailWatcher - INFO - ==================================================
+2026-01-15 07:14:09,070 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2026-01-15 07:14:09,109 - GmailWatcher - INFO - Mode: Rule-Based (Gmail Send enabled, no Claude API)
+2026-01-15 07:14:09,110 - GmailWatcher - INFO - Watcher started. Checking every 120 seconds...
+2026-01-15 07:14:09,110 - GmailWatcher - INFO - Checkbox trigger: Check '- [x] Reply to sender' to auto-send
+2026-01-15 07:14:09,111 - GmailWatcher - INFO - --------------------------------------------------
+2026-01-15 07:14:10,957 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 07:14:10,959 - GmailWatcher - INFO - [.] LOW - Invitation [AUTO-REPLIED]
+2026-01-15 07:14:11,784 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 07:14:11,786 - GmailWatcher - INFO - [.] LOW - Invitation [AUTO-REPLIED]
+2026-01-15 07:14:12,448 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 07:14:12,449 - GmailWatcher - INFO - [.] LOW - Project Alpha [AUTO-REPLIED]
+2026-01-15 07:14:13,265 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 07:14:13,334 - GmailWatcher - INFO - [.] LOW - New email [AUTO-REPLIED]
+2026-01-15 07:14:14,125 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 07:14:14,127 - GmailWatcher - INFO - [.] LOW - 10 New Tools You Missed This Week [AUTO-REPLIED]
+2026-01-15 07:14:14,880 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 07:14:14,882 - GmailWatcher - INFO - [.] LOW - Project Alpha [AUTO-REPLIED]
+2026-01-15 07:14:15,581 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 07:14:15,583 - GmailWatcher - INFO - [.] LOW - It's new one [AUTO-REPLIED]
+2026-01-15 07:14:16,397 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 07:14:16,399 - GmailWatcher - INFO - [.] LOW - new one [AUTO-REPLIED]
+2026-01-15 07:14:17,144 - EmailProcessor - INFO - [SENT] Auto-reply to: munizazubairkhan@gmail.com
+2026-01-15 07:14:17,146 - GmailWatcher - INFO - [.] LOW - New email [AUTO-REPLIED]
+2026-01-15 07:16:28,898 - EmailProcessor - INFO - Notification sent: HIGH Email from Muniya
+2026-01-15 07:16:28,970 - GmailWatcher - INFO - [!!] HIGH - Invitation
+2026-01-15 07:18:29,310 - GmailWatcher - INFO - [CHECKBOX] Processing: EMAIL_19bbf6e763ef5112.md
+2026-01-15 07:18:29,700 - EmailProcessor - INFO - [SENT] Auto-reply to: m95251957@gmail.com
+2026-01-15 07:18:29,700 - GmailWatcher - INFO -   [SENT] Reply sent to: m95251957@gmail.com
+2026-01-15 07:18:30,022 - GmailWatcher - INFO -   [GMAIL] Marked as read: 19bbf6e763...
+2026-01-15 07:18:30,758 - GmailWatcher - INFO -   [MOVED] EMAIL_19bbf6e763ef5112.md → Done/
+2026-01-15 07:28:43,026 - EmailProcessor - INFO - Notification sent: HIGH Email from Muniya
+2026-01-15 07:28:43,375 - GmailWatcher - INFO - [!!] HIGH - Invitation
+2026-01-15 07:30:43,691 - GmailWatcher - INFO - [CHECKBOX] Processing: EMAIL_19bbf79dec7b362c.md
+2026-01-15 07:30:44,388 - EmailProcessor - INFO - [SENT] Auto-reply to: m95251957@gmail.com
+2026-01-15 07:30:44,390 - GmailWatcher - INFO -   [SENT] Reply sent to: m95251957@gmail.com
+2026-01-15 07:30:44,719 - GmailWatcher - INFO -   [GMAIL] Marked as read: 19bbf79dec...
+2026-01-15 07:30:44,721 - GmailWatcher - INFO -   [MOVED] EMAIL_19bbf79dec7b362c.md → Done/

@@ -5,7 +5,9 @@ Monitors Gmail, auto-categorizes, and sends when you check "Reply to sender".
 
 import os
 import re
+import sys
 import shutil
+import logging
 from pathlib import Path
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -18,13 +20,28 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
+# Configure logging
+LOG_DIR = Path(__file__).parent / "logs"
+LOG_DIR.mkdir(exist_ok=True)
+LOG_FILE = LOG_DIR / f"gmail_watcher_{datetime.now().strftime('%Y%m%d')}.log"
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(LOG_FILE, encoding='utf-8'),
+        logging.StreamHandler(sys.stdout)
+    ]
+)
+logger = logging.getLogger('GmailWatcher')
+
 # Import email processor (Claude API integration)
 try:
     from email_processor import EmailProcessor
     PROCESSOR_AVAILABLE = True
 except ImportError:
     PROCESSOR_AVAILABLE = False
-    print("Warning: email_processor not available. Running in basic mode.")
+    logger.warning("email_processor not available. Running in basic mode.")
 
 # SCOPES define what the AI can do.
 SCOPES = [
@@ -55,12 +72,12 @@ class GmailWatcher(BaseWatcher):
         if PROCESSOR_AVAILABLE:
             self.processor = EmailProcessor(vault_path, gmail_service=self.service)
             if os.getenv('ANTHROPIC_API_KEY'):
-                print("Mode: AI-Powered (Claude API + Gmail Send)")
+                logger.info("Mode: AI-Powered (Claude API + Gmail Send)")
             else:
-                print("Mode: Rule-Based (Gmail Send enabled, no Claude API)")
+                logger.info("Mode: Rule-Based (Gmail Send enabled, no Claude API)")
         else:
             self.processor = None
-            print("Warning: email_processor not available. Running in basic mode.")
+            logger.warning("email_processor not available. Running in basic mode.")
 
     def _get_credentials(self):
         creds = None
@@ -94,10 +111,10 @@ class GmailWatcher(BaseWatcher):
                 id=message_id,
                 body={'removeLabelIds': ['UNREAD']}
             ).execute()
-            print(f"  [GMAIL] Marked as read: {message_id[:10]}...")
+            logger.info(f"  [GMAIL] Marked as read: {message_id[:10]}...")
             return True
         except Exception as e:
-            print(f"  [ERROR] Could not mark as read: {e}")
+            logger.error(f"  [ERROR] Could not mark as read: {e}")
             return False
 
     def scan_for_checkbox_triggers(self):
@@ -114,18 +131,18 @@ class GmailWatcher(BaseWatcher):
                     if '- [x] Reply to sender' in content or '- [X] Reply to sender' in content:
                         self._process_checked_email(email_file, content)
                 except Exception as e:
-                    print(f"Error scanning {email_file.name}: {e}")
+                    logger.error(f"Error scanning {email_file.name}: {e}")
 
     def _process_checked_email(self, email_file: Path, content: str):
         """Process an email that has 'Reply to sender' checked."""
-        print(f"\n[CHECKBOX] Processing: {email_file.name}")
+        logger.info(f"[CHECKBOX] Processing: {email_file.name}")
 
         # Extract email details from frontmatter
         from_match = re.search(r'^from:\s*(.+)$', content, re.MULTILINE)
         subject_match = re.search(r'^subject:\s*(.+)$', content, re.MULTILINE)
 
         if not from_match:
-            print(f"  Error: Could not find 'from' in {email_file.name}")
+            logger.error(f"  Error: Could not find 'from' in {email_file.name}")
             return
 
         email_from = from_match.group(1).strip()
@@ -151,7 +168,7 @@ class GmailWatcher(BaseWatcher):
 
         # Send the email
         if self.processor and self.processor.send_email(reply_to, reply_subject, reply_body):
-            print(f"  [SENT] Reply sent to: {reply_to}")
+            logger.info(f"  [SENT] Reply sent to: {reply_to}")
 
             # Extract message ID from filename (EMAIL_xxxxx.md)
             gmail_message_id = email_file.stem.replace('EMAIL_', '')
@@ -176,19 +193,19 @@ class GmailWatcher(BaseWatcher):
             done_path.write_text(updated_content, encoding='utf-8')
             email_file.unlink()  # Delete original
 
-            print(f"  [MOVED] {email_file.name} → Done/")
+            logger.info(f"  [MOVED] {email_file.name} → Done/")
 
             # Update dashboard
             if self.processor:
                 self.processor.update_dashboard()
         else:
-            print(f"  [FAILED] Could not send reply to: {reply_to}")
+            logger.error(f"  [FAILED] Could not send reply to: {reply_to}")
 
     def run(self):
         """Override run to include checkbox scanning."""
-        print(f"Watcher started. Checking every {self.check_interval} seconds...")
-        print("Checkbox trigger: Check '- [x] Reply to sender' to auto-send")
-        print("-" * 50)
+        logger.info(f"Watcher started. Checking every {self.check_interval} seconds...")
+        logger.info("Checkbox trigger: Check '- [x] Reply to sender' to auto-send")
+        logger.info("-" * 50)
 
         try:
             while True:
@@ -203,7 +220,7 @@ class GmailWatcher(BaseWatcher):
                 import time
                 time.sleep(self.check_interval)
         except KeyboardInterrupt:
-            print("\nWatcher stopped.")
+            logger.info("Watcher stopped.")
 
     def create_action_file(self, message) -> Path:
         msg = self.service.users().messages().get(
@@ -289,7 +306,7 @@ priority_reason: {reason}
         priority_icons = {'URGENT': '[!!!]', 'HIGH': '[!!]', 'MEDIUM': '[!]', 'LOW': '[.]'}
         icon = priority_icons.get(priority, '[?]')
         auto_tag = " [AUTO-REPLIED]" if auto_replied else ""
-        print(f"{icon} {priority} - {subject[:50]}{'...' if len(subject) > 50 else ''}{auto_tag}")
+        logger.info(f"{icon} {priority} - {subject[:50]}{'...' if len(subject) > 50 else ''}{auto_tag}")
 
         # Update dashboard
         if self.processor:
@@ -302,12 +319,13 @@ if __name__ == "__main__":
     VAULT_PATH = r"C:\Users\SIBGHAT\OneDrive\Documents\Obsidian Vault\AI-Employee-Vault"
     TOKEN_PATH = "token.json"
 
-    print("=" * 50)
-    print("AI Employee System - Gmail Watcher")
-    print("=" * 50)
-    print(f"Vault: {VAULT_PATH}")
-    print(f"Check Interval: 120 seconds")
-    print("=" * 50)
+    logger.info("=" * 50)
+    logger.info("AI Employee System - Gmail Watcher")
+    logger.info("=" * 50)
+    logger.info(f"Vault: {VAULT_PATH}")
+    logger.info(f"Check Interval: 120 seconds")
+    logger.info(f"Log File: {LOG_FILE}")
+    logger.info("=" * 50)
 
     watcher = GmailWatcher(VAULT_PATH, TOKEN_PATH)
     watcher.run()

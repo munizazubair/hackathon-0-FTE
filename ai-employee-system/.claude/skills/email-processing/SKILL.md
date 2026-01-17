@@ -2,7 +2,7 @@
 name: email-processing
 description: Processes Gmail via MCP, categorizes by priority in Obsidian, and manages the Draft-to-Send approval workflow.
 tier: silver
-version: 2.1.0
+version: 2.2.0
 triggers:
   - /email
   - process email
@@ -258,16 +258,74 @@ After sending:
 
 ---
 
+## Logging System
+
+**Log Location**: `ai-employee-system/logs/`
+
+### Log Files:
+- `gmail_watcher_YYYYMMDD.log` - Gmail watcher activity logs
+- `email_processor_YYYYMMDD.log` - Email processing/notification logs
+
+### Log Levels:
+- `INFO` - Normal operations (emails processed, sent, moved)
+- `WARNING` - Non-critical issues (Claude API fallback, notification warnings)
+- `ERROR` - Critical issues (send failures, file errors)
+
+### Viewing Logs:
+```bash
+# View latest watcher log
+type logs\gmail_watcher_*.log
+
+# Follow log in real-time (PowerShell)
+Get-Content logs\gmail_watcher_*.log -Wait -Tail 50
+
+# View errors only
+findstr /i "ERROR" logs\gmail_watcher_*.log
+```
+
+---
+
+## Troubleshooting
+
+### WNDPROC/WPARAM Error (FIXED)
+If you see: `WNDPROC return value cannot be converted to LRESULT` or `TypeError: WPARAM is simple, so must be an int object (got NoneType)`
+
+**Solution**: This was a bug in win10toast library. The code now:
+1. Tries `winotify` library first (more reliable)
+2. Falls back to patched `win10toast` with `threaded=False`
+3. Gracefully handles notification failures without crashing
+
+**To use winotify (recommended)**:
+```bash
+pip install winotify
+```
+
+### Other Common Issues:
+| Issue | Solution |
+|-------|----------|
+| "Gmail service not available" | Re-run OAuth: delete `token.json` and restart |
+| "Claude API error" | Check `ANTHROPIC_API_KEY` in `.env` |
+| Notifications not showing | Install `winotify`: `pip install winotify` |
+| Logs not created | Check write permissions to `logs/` folder |
+
+---
+
 ## System Commands
 
 ### Start Watcher:
 ```bash
-cd C:\Users\SIBGHAT\OneDrive\Desktop\ai-employee-system
+cd C:\Users\SIBGHAT\OneDrive\Desktop\hackathon-0-FTE\ai-employee-system
 python gmail_watcher.py
 ```
 
 ### Check Watcher Status:
 Look at Dashboard.md - if "Last Updated" is recent, watcher is running.
+
+### View Logs:
+```bash
+# Latest log file
+type logs\gmail_watcher_*.log
+```
 
 ---
 
@@ -286,6 +344,7 @@ C:\Users\SIBGHAT\OneDrive\Documents\Obsidian Vault\AI-Employee-Vault\
 
 ---
 
-*Email Processing Skill v2.1 - Silver Tier*
-*Features: Checkbox Auto-Send, Priority Categorization, Weekly Audit*
+*Email Processing Skill v2.2 - Silver Tier*
+*Features: Checkbox Auto-Send, Priority Categorization, Weekly Audit, File Logging*
 *Gmail Watcher handles automatic sending - Claude handles custom tasks*
+*Logs: ai-employee-system/logs/*

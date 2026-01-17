@@ -1,7 +1,8 @@
 # Email Processing Skill - Full Implementation
 
-**Version**: 1.0 (Full Implementation)
+**Version**: 2.2 (Full Implementation + Logging)
 **Created**: 2026-01-11
+**Updated**: 2026-01-15
 **Status**: Production Ready ✅
 
 ---
@@ -24,6 +25,11 @@ email-processing/
     ├── update_dashboard.py     # Auto-generate dashboard statistics
     ├── categorize_email.py     # Auto-categorize emails by priority
     └── README.md               # Script usage documentation
+
+# Log files (auto-created in ai-employee-system/logs/)
+logs/
+├── gmail_watcher_YYYYMMDD.log  # Gmail watcher activity
+└── email_processor_YYYYMMDD.log # Email processor events
 ```
 
 ---

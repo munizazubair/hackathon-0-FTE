@@ -3,5 +3,6 @@ google-auth-httplib2
 google-auth-oauthlib
 python-dotenv
 anthropic
+winotify
 win10toast
 pyyaml

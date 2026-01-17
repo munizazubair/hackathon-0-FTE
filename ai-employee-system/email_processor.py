@@ -4,8 +4,10 @@ Handles email categorization, draft generation, auto-replies, and notifications.
 """
 
 import os
+import sys
 import json
 import base64
+import logging
 from email.mime.text import MIMEText
 from pathlib import Path
 from datetime import datetime
@@ -14,6 +16,21 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
+# Configure logging
+LOG_DIR = Path(__file__).parent / "logs"
+LOG_DIR.mkdir(exist_ok=True)
+LOG_FILE = LOG_DIR / f"email_processor_{datetime.now().strftime('%Y%m%d')}.log"
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(LOG_FILE, encoding='utf-8'),
+        logging.StreamHandler(sys.stdout)
+    ]
+)
+logger = logging.getLogger('EmailProcessor')
+
 # Claude API support (optional)
 try:
     from anthropic import Anthropic
@@ -21,14 +38,43 @@ try:
 except ImportError:
     CLAUDE_AVAILABLE = False
 
-# Windows notification support
+# Windows notification support - using winotify or fallback to win10toast with fix
+TOAST_AVAILABLE = False
+toaster = None
+
 try:
-    from win10toast import ToastNotifier
+    # Try winotify first (more reliable)
+    from winotify import Notification, audio
     TOAST_AVAILABLE = True
-    toaster = ToastNotifier()
+    TOAST_TYPE = 'winotify'
+    logger.info("Using winotify for notifications")
 except ImportError:
-    TOAST_AVAILABLE = False
-    toaster = None
+    try:
+        # Fallback to win10toast with workaround for WNDPROC bug
+        from win10toast import ToastNotifier
+
+        # Monkey-patch to fix the WNDPROC return value bug
+        import ctypes
+        original_show_toast = ToastNotifier.show_toast
+
+        def patched_show_toast(self, title, msg, icon_path=None, duration=5, threaded=False):
+            """Patched show_toast to handle WNDPROC errors gracefully."""
+            try:
+                # Force non-threaded to avoid callback issues
+                return original_show_toast(self, title, msg, icon_path, duration, threaded=False)
+            except Exception as e:
+                logger.warning(f"Toast notification failed (handled): {e}")
+                return False
+
+        ToastNotifier.show_toast = patched_show_toast
+        toaster = ToastNotifier()
+        TOAST_AVAILABLE = True
+        TOAST_TYPE = 'win10toast'
+        logger.info("Using win10toast for notifications (patched)")
+    except ImportError:
+        TOAST_AVAILABLE = False
+        TOAST_TYPE = None
+        logger.warning("No notification library available")
 
 
 class EmailProcessor:
@@ -74,7 +120,7 @@ class EmailProcessor:
             try:
                 return self._claude_categorize(email_from, subject, content)
             except Exception as e:
-                print(f"Claude API error: {e}, using fallback")
+                logger.warning(f"Claude API error: {e}, using fallback")
 
         # Fallback to rule-based
         return self._fallback_categorize(email_from, subject, content)
@@ -158,7 +204,7 @@ Content: {content[:500]}
             try:
                 return self._claude_generate_draft(email_from, subject, content, priority)
             except Exception as e:
-                print(f"Claude API error (draft): {e}")
+                logger.warning(f"Claude API error (draft): {e}")
 
         # Fallback template
         return "Thank you for your email. I'll review this and get back to you shortly."
@@ -214,14 +260,14 @@ Write the brief acknowledgment:"""
                 )
                 return response.content[0].text.strip()
             except Exception as e:
-                print(f"Claude API error (auto-reply): {e}")
+                logger.warning(f"Claude API error (auto-reply): {e}")
 
         return self.auto_reply_templates["default"]
 
     def send_email(self, to: str, subject: str, body: str) -> bool:
         """Send an email using Gmail API."""
         if not self.gmail_service:
-            print("Gmail service not available for sending")
+            logger.error("Gmail service not available for sending")
             return False
 
         try:
@@ -239,29 +285,43 @@ Write the brief acknowledgment:"""
                 body={'raw': raw}
             ).execute()
 
-            print(f"[SENT] Auto-reply to: {to}")
+            logger.info(f"[SENT] Auto-reply to: {to}")
             return True
 
         except Exception as e:
-            print(f"Send email error: {e}")
+            logger.error(f"Send email error: {e}")
             return False
 
     def send_notification(self, title: str, message: str, priority: str = "MEDIUM"):
         """Send Windows desktop notification for important emails."""
         if not TOAST_AVAILABLE:
-            print(f"[NOTIFICATION] {title}: {message}")
+            logger.info(f"[NOTIFICATION] {title}: {message}")
             return
 
         try:
-            toaster.show_toast(
-                title=title,
-                msg=message[:200],
-                duration=10 if priority in ["URGENT", "HIGH"] else 5,
-                threaded=True
-            )
+            if TOAST_TYPE == 'winotify':
+                # Use winotify (more reliable)
+                toast = Notification(
+                    app_id="AI Employee System",
+                    title=title,
+                    msg=message[:200],
+                    duration="long" if priority in ["URGENT", "HIGH"] else "short"
+                )
+                toast.set_audio(audio.Default, loop=False)
+                toast.show()
+                logger.info(f"Notification sent: {title}")
+            elif TOAST_TYPE == 'win10toast' and toaster:
+                # Use patched win10toast (non-threaded to avoid WNDPROC bug)
+                toaster.show_toast(
+                    title=title,
+                    msg=message[:200],
+                    duration=10 if priority in ["URGENT", "HIGH"] else 5,
+                    threaded=False  # CRITICAL: Must be False to avoid WNDPROC error
+                )
+                logger.info(f"Notification sent: {title}")
         except Exception as e:
-            print(f"Notification error: {e}")
-            print(f"[NOTIFICATION] {title}: {message}")
+            logger.warning(f"Notification error (continuing anyway): {e}")
+            logger.info(f"[NOTIFICATION] {title}: {message}")
 
     def update_dashboard(self):
         """Update Dashboard.md with current counts."""
@@ -312,10 +372,22 @@ Write the brief acknowledgment:"""
 *Auto-generated by AI Employee System*
 """
 
-        try:
-            self.dashboard_path.write_text(dashboard_content, encoding='utf-8')
-        except Exception as e:
-            print(f"Dashboard update error: {e}")
+        # Retry logic for OneDrive/Obsidian file locking
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                self.dashboard_path.write_text(dashboard_content, encoding='utf-8')
+                return  # Success
+            except PermissionError as e:
+                if attempt < max_retries - 1:
+                    import time
+                    time.sleep(0.5)  # Wait 500ms before retry
+                    logger.warning(f"Dashboard write retry {attempt + 1}/{max_retries}")
+                else:
+                    logger.warning(f"Dashboard update skipped (file locked): {e}")
+            except Exception as e:
+                logger.error(f"Dashboard update error: {e}")
+                break
 
     def process_email(self, email_from: str, subject: str, content: str, message_id: str) -> dict:
         """
@@ -383,4 +455,4 @@ if __name__ == "__main__":
         "Test Subject",
         "This is a test email content."
     )
-    print(f"Test result: {test_result}")
+    logger.info(f"Test result: {test_result}")
